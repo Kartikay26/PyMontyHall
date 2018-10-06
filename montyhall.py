@@ -15,16 +15,26 @@ while i < n:
 
     winningdoor = random.randint(1,3)
     doorchosen = random.randint(1,3)
+    
+    # monty opens a door, and shows a goat inside it
+    # monty cannot open the winning door, and neither the door we chose
+    
+    choices_with_monty = [1,2,3]
+    choices_with_monty.remove(doorchosen)
+    if winningdoor in choices_with_monty: choices_with_monty.remove(winningdoor)
+    monty_opens = random.choice(choices_with_monty)
 
-    # If doorchosen == winningdoor, stickwin will be the winning choise, otherwise switchwin
-    if doorchosen == winningdoor:
+    # choice #1: we stick
+
+    if winningdoor == doorchosen:
         stickwin += 1
-        #pylab.scatter(stickwin, i, c='r', label='Stick')
-        print("Sticking to initial option is the winning choice")
-    else:
+
+    # choice #2: we switch
+
+    doorchosen = (1+2+3) - monty_opens - doorchosen
+
+    if winningdoor == doorchosen:
         switchwin += 1
-        #pylab.scatter(switchwin, i, c='g', label='Switch')
-        print("Switching initial option is the winning choice")
 
     stickwinlist.append(stickwin)
     switchwinlist.append(switchwin)
